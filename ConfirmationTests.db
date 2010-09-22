@@ -1,6 +1,6 @@
 ** LambdaMOO Database, Format Version 4 **
 7
-11
+17
 0
 1
 3
@@ -122,7 +122,7 @@ tearDown
 1
 -1
 -1
-8
+9
 areEqual
 3
 173
@@ -155,6 +155,10 @@ isTypeOf
 3
 173
 -1
+stringBeginsWith
+3
+173
+-1
 1
 message
 1
@@ -173,8 +177,32 @@ Primitive Tests
 4
 -1
 -1
-1
+7
 testTypeValues
+3
+173
+-1
+test_toStr
+3
+173
+-1
+test_toLiteral
+3
+173
+-1
+test_toInt
+3
+173
+-1
+test_toObj
+3
+173
+-1
+test_toFloat
+3
+173
+-1
+test_equals
 3
 173
 -1
@@ -265,6 +293,22 @@ else
 raise(E_NONE, msg);
 endif
 .
+#5:8
+if (length(args) < 2)
+raise(E_ARGS);
+endif
+index = 1;
+msg = "";
+{substring, fullstring, msg} = args;
+$assert:isString(substring);
+$assert:isString(fullstring);
+while (((index <= length(substring)) && (index <= length(fullstring))) && (substring[index] == fullstring[index]))
+index = index + 1;
+endwhile
+if ((index != length(substring)) || (index != length(fullstring)))
+raise(E_NONE, msg);
+endif
+.
 #6:0
 $assert:areEqual(typeof(""), STR);
 $assert:areEqual(typeof({}), LIST);
@@ -272,6 +316,41 @@ $assert:areEqual(typeof(1), INT);
 $assert:areEqual(typeof(1.0), FLOAT);
 $assert:areEqual(typeof(#0), OBJ);
 $assert:areEqual(typeof(E_NONE), ERR);
+.
+#6:1
+$assert:areEqual("17", tostr(17), "Integer -> String");
+$assert:stringBeginsWith("0.333", tostr(1.0 / 3.0), "Division -> String");
+$assert:areEqual("#17", tostr(#17), "ObjRef -> String");
+$assert:areEqual("foo", tostr("foo"), "Identity");
+$assert:areEqual("{list}", tostr({1, 2}), "List -> String");
+$assert:areEqual("3 + 4 = 7", tostr("3 + 4 = ", 3 + 4), "Expression -> String");
+$assert:areEqual("abc", tostr("ab", "c"), "String Concatenation 2");
+$assert:areEqual("abc de", tostr("ab", "c", " ", "de"), "String Concatenation 3");
+.
+#6:2
+$assert:areEqual("17", toliteral(17), "Integer -> Literal");
+$assert:stringBeginsWith("0.333", toliteral(1.0 / 3.0), "Division -> Literal");
+$assert:areEqual("#17", toliteral(#17), "ObjRef -> Literal");
+$assert:areEqual("\"foo\"", toliteral("foo"), "String -> Literal");
+$assert:areEqual("{1, 2}", toliteral({1, 2}), "List -> Literal");
+.
+#6:3
+$assert:areEqual(34, toint(34.7), "Float -> Int");
+$assert:areEqual(34, toint(-34.7), "Neg Float -> Int");
+$assert:areEqual(34, toliteral(#34), "ObjRef -> Int");
+$assert:areEqual(34, toint("34"), "String Int -> Int");
+$assert:areEqual(34, toint("34.7"), "String Float -> Int");
+$assert:areEqual(-34, toint("  -34.7  "), "String Neg Float -> Int");
+.
+#6:4
+$assert:areEqual(#34, toobj(34), "Int -> Obj");
+$assert:areEqual(#34, toobj("34"), "String -> Obj");
+$assert:areEqual(#34, toobj("#34"), "String-Hash -> Obj");
+$assert:areEqual(#0, toobj("foo"), "Bad String-> Obj");
+.
+#6:5
+$assert:areEqual(1, equal("Foo", "Foo"), "Identical Strings");
+$assert:areEqual(0, equal("foo", "Foo"), "Captilization Difference");
 .
 0 clocks
 0 queued tasks
