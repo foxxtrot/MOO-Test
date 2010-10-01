@@ -1,0 +1,34 @@
+;add_property(#0, "test_runner", create(#1), {player, "r"})
+;$test_runner.name = "Generic Test Runner"
+;add_property($test_runner, "testHarnesses", {}, {player, "r"})
+;add_verb($test_runner, {player, "rxd", "addTestHarness"}, $tnt)
+;add_verb($test_runner, {player, "rxd", "runTests"}, $tnt)
+.program $test_runner:addTestHarness
+{harness} = args;
+if (typeof(harness) != OBJ && parent(harness) == $testHarness)
+	raise(E_ARGS);
+endif
+this.testHarnesses = listappend(this.testHarnesses, harness);
+.
+.program $test_runner:runTests
+results = {};
+if (length(args) == 1 && typeof(args[1]) == OBJ && parent(args[1]) == $testHarness)
+	harness = args[1];
+	for verb in (verbs(harness))
+		if(verb[1] == "t" && verb[2] == "e" && verb[3] == "s" && verb[4] == "t")
+			command = tostr(harness, ":", verb, "();");
+			try 
+				eval(command);
+				results = listappend(results, {verb, "PASS"});
+			except error (ANY)
+				results = listappend(results, {verb, "FAIL", error[2]});
+			endtry
+		endif
+	endfor
+else
+	for harness in (this.testHarnesses)
+		results = listappend(results, {harness.name, this:runTests(harness)});
+	endfor
+endif
+return results;
+.
