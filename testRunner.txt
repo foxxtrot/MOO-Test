@@ -8,7 +8,7 @@
 if (typeof(harness) != OBJ && parent(harness) == $testHarness)
 	raise(E_ARGS);
 endif
-this.testHarnesses = listappend(this.testHarnesses, harness);
+this.testHarnesses = setadd(this.testHarnesses, harness);
 .
 .program $test_runner:runTests
 results = {};
@@ -18,11 +18,13 @@ if (length(args) == 1 && typeof(args[1]) == OBJ && parent(args[1]) == $testHarne
 		if(verb[1] == "t" && verb[2] == "e" && verb[3] == "s" && verb[4] == "t")
 			command = tostr(harness, ":", verb, "();");
 			try 
+				harness:setUp();
 				eval(command);
 				results = listappend(results, {verb, "PASS"});
 			except error (ANY)
 				results = listappend(results, {verb, "FAIL", error[2]});
 			endtry
+			harness:tearDown();
 		endif
 	endfor
 else
