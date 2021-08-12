@@ -11,9 +11,9 @@ non-builtin functions used in the objects.
 Following OO development start with these base objects, then update
 the verbs to include code that is specific to your MOO. Or keep the
 code as-is and add other helper objects that use the MOO-Test objects.
-For example, how about $thing object that can help manage the creation
-of test harnesses, running the tests, and logging the results to $note
-object that are saved with FUP.
+For example, how about a $thing object that can help manage the
+creation of test harnesses, running the tests, and logging the results
+to $note objects that are saved with FUP.
 
 ## Process for getting the code
 
