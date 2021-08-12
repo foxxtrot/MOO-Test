@@ -57,6 +57,7 @@ main README.md file to be in the verbs, so they are self-documented.
 ### Object Outline
 
     System Object (#0)
+        Parent => #1
         Properties => {"testHarness", "assert", "tnt", "test_runner"}
             #0.testHarness => #4
             #0.assert => #5
@@ -65,22 +66,27 @@ main README.md file to be in the verbs, so they are self-documented.
         Verbs => {"do_login_command"}
 
     Root Class (#1)
+        Parent => #-1
         Properties => none
         Verbs => none
 
     The First Room (#2)
+        Parent => #1
         Properties => none
         Verbs => {"eval"}
            
     Wizard (#3)
+        Parent => #1
         Properties => none
         Verbs => none
 
     $testHarness (#4)
+        Parent => #1
         Properties =>  none
         Verbs => {"setUp", "tearDown"}
         
     $assert (#5)
+        Parent => #1
         Properties => {"message"}
             #5.message => ""
         Verbs => {"areEqual", "isList", "isString", "isInt",
@@ -88,11 +94,13 @@ main README.md file to be in the verbs, so they are self-documented.
             "stringBeginsWith"}
         
     $test_runner (#7)
+        Parent => #1
         Properties => {"testHarnesses"}
             #7.testHarnesses => {#6}
         Verbs => {"addTestHarness", "runTests"}    
 
     test_the_tests (#6)
+        Parent => #4 ($testHarness)
         Properties =>  none
         Verbs => {"testTypeValues", "test_toStr", "test_toLiteral",
             "test_toInt", "test_toObj", "test_toFloat", "test_equals"}
