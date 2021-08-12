@@ -1,10 +1,18 @@
 # Contrib
 
-This looks like the could be useful, but delivering the code in a
-Minimal.db makes it very hard to copy and deploy the code to other
-MOOs. It does prevent dependencies on objects that are not in every
-core, but a careful review could prevent that. Or a script could be
-written to flag any non-builtin functions.
+MOO-Test looks like the could be very useful TDD of moo code, but
+delivering the code in a Minimal.db makes it very hard to copy and
+deploy the code to other MOOs. However, it does prevent dependencies
+on objects that are not in every core, but a careful review could
+prevent that. Or a script could be written to flag any non-builtin
+functions used in the objects.
+
+Following OO development start with these base objects, then update
+the verbs to include code that is specific to your MOO. Or keep the
+code as-is and add other helper objects that use the MOO-Test objects.
+For example, how about $thing object that can help manage the creation
+of test harnesses, running the tests, and logging the results to $note
+object that are saved with FUP.
 
 ## Process for getting the code
 
@@ -16,22 +24,19 @@ written to flag any non-builtin functions.
 For example:
 
     ; properties(#0)
-    => {"testHarness", "assert", "tnt", "test_runner"}
-    
+        => {"testHarness", "assert", "tnt", "test_runner"}
     ; #0.testHarness
-    => #4
-    
+        => #4
     ; #0.assert
-    => #5
-    
+        => #5
     ; verbs($assert)
-    => {"areEqual", "isList", "isString", "isInt", "isFloat", "isObj",
-        "isErr", "isTypeOf", "stringBeginsWith"}
+        => {"areEqual", "isList", "isString", "isInt", "isFloat", "isObj",
+            "isErr", "isTypeOf", "stringBeginsWith"}
     
     ; verb_code($assert,"areEqual")
-    => {"if (length(args) < 2)", " return raise(E_ARGS);", "endif",
-        "msg = \"\";", "{a, b, ?msg} = args;", "if (a == b)",
-	"        return;", "else", " raise(E_NONE, msg);", "endif"}
+        => {"if (length(args) < 2)", " return raise(E_ARGS);", "endif",
+            "msg = \"\";", "{a, b, ?msg} = args;", "if (a == b)",
+        "        return;", "else", " raise(E_NONE, msg);", "endif"}
 
 Yes, this is tedious. The "Object Outline" has a summary of the results.
 
@@ -40,11 +45,11 @@ I created the objects in eduCore (which is very similar to
 LambdaCore). I used $generic_utils as the parent object, but #1 could
 have been used.
 
-* Then "@dump" was used to get a pretty dump of the object. The output
+* Then "@dump" was used to get a pretty dump of the objects. The output
 can be cut/pasted to create the objects.  Of course you will need to
 adjust the object numbers for the created objects.
 
-* Most MOO's help function for verbs will list the strings at the
+* Most MOO's have help functions that will list the strings at the
 beginning of the verb. So I have copied the description text from the
 main README.md file to be in the verbs, so they are self-documented.
 

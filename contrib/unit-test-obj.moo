@@ -5,6 +5,7 @@
     Note the obj # and set the "assert" prop in #0
 @prop #0."assert" "#257"
 
+@prop $assert."description" "A collection of assertion methods that raise a signal, including an "optional message, if they fail."
 @prop $assert."message" "" rc
 ;;$assert.("unique_id") = 0
 ;;$assert.("aliases") = {"assert"}
@@ -160,6 +161,7 @@ endif
     Note the obj # and set the "testHarness" prop in #0
 @prop #0."testHarness" "#256"
 
+@prop $testHarness."description" "A Generic Test Harness that you should base your own test objects off of"
 ;;$testHarness.("unique_id") = 0
 ;;$testHarness.("aliases") = {"test_harness"}
 ;;$testHarness.("object_size") = {0, 0}
@@ -187,6 +189,7 @@ endif
     Note the obj # and set the "test_runner" prop in #0
 @prop #0."test_runner" "#258"
 
+@prop $test_runner."description" "An object to run tests."
 @prop $test_runner."testHarnesses" {} rc
 ;;$test_runner.("testHarnesses") = {}
 ;;$test_runner.("unique_id") = 0
@@ -248,6 +251,7 @@ return results;
 @create $testHarness named test_the_tests:test_the_tests
     Note the obj # and change #259 below to the obj #.
 
+@prop #259."description" "Unit tests for $assert, $testHarness, $test_runner."
 ;;#259.("aliases") = {"test_the_tests"}
 ;;#259.("last_recycled") = 1628665775
 ;;#259.("last_modified") = 1628666207
