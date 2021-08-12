@@ -60,37 +60,37 @@ main README.md file to be in the verbs, so they are self-documented.
         Properties => {"testHarness", "assert", "tnt", "test_runner"}
             #0.testHarness => #4
             #0.assert => #5
-	    #0.tnt => {"this", "none", "this"}	(not used)
-	    #0.test_runner => #7
-	Verbs => {"do_login_command"}
+            #0.tnt => {"this", "none", "this"}  (not used)
+            #0.test_runner => #7
+        Verbs => {"do_login_command"}
 
     Root Class (#1)
         Properties => none
-	Verbs => none
+        Verbs => none
 
     The First Room (#2)
         Properties => none
         Verbs => {"eval"}
-	   
+           
     Wizard (#3)
         Properties => none
-	Verbs => none
+        Verbs => none
 
     $testHarness (#4)
         Properties =>  none
-	Verbs => {"setUp", "tearDown"}
-	
+        Verbs => {"setUp", "tearDown"}
+        
     $assert (#5)
         Properties => {"message"}
-	    #5.message => ""
-	Verbs => {"areEqual", "isList", "isString", "isInt",
-	    "isFloat", "isObj", "isErr", "isTypeOf",
-	    "stringBeginsWith"}
-	
+            #5.message => ""
+        Verbs => {"areEqual", "isList", "isString", "isInt",
+            "isFloat", "isObj", "isErr", "isTypeOf",
+            "stringBeginsWith"}
+        
     $test_runner (#7)
         Properties => {"testHarnesses"}
-	    #7.testHarnesses => {#6}
-	Verbs => {"addTestHarness", "runTests"}    
+            #7.testHarnesses => {#6}
+        Verbs => {"addTestHarness", "runTests"}    
 
     test_the_tests (#6)
         Properties =>  none
