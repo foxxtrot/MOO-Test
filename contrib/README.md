@@ -1,11 +1,12 @@
 # Contrib
 
-MOO-Test looks like the could be very useful TDD of moo code, but
-delivering the code in a Minimal.db makes it very hard to copy and
-deploy the code to other MOOs. However, it does prevent dependencies
-on objects that are not in every core, but a careful review could
-prevent that. Or a script could be written to flag any non-builtin
-functions used in the objects.
+MOO-Test looks like it could be very a useful TDD tool for moo code,
+but delivering the code in a Minimal.db makes it very hard to copy and
+deploy the code to other MOOs, because there are no objects for
+listing or dumping whole objects. However, this does prevent
+dependencies on objects that are not in every core, but a careful
+review could prevent that. Or a script could be written to flag any
+non-builtin functions used in the objects.
 
 Following OO development start with these base objects, then update
 the verbs to include code that is specific to your MOO. Or keep the
